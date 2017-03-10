@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+	
+	<resultMap id="result" type="Member">
+	    <result property="memberFirstName" column="first_name_s"/>
+	    <result property="memberLastName" column="last_name_s"/>
+	    <result property="memberDOB" column="date_of_birth"/>
+	    <result property="memberGender" column="gender"/>
+	    <result property="memberPhoneNumber" column="mobile_no"/>
+	    <result property="profileId" column="profile_id"/>
+	    <result property="emailId" column="email_id"/>
+	    <result property="picfilepath" column="picfilepath"/>
+    </resultMap>
+	
+    <select id="getAll" resultMap="result">
+    	SELECT * FROM MEMBERS 
+    </select>
+    
+    <select id="getById" parameterType="String" resultMap="result">
+    	SELECT * FROM MEMBERS WHERE email_id = #{id}
+  	</select>
+  
+    <update id="update" parameterType="Member">
+	  	UPDATE MEMBERS
+		SET
+			first_name_s = #{memberFirstName},
+			last_name_s = #{memberLastName},
+			gender = #{memberGender},
+			date_of_birth = #{memberDOB},
+			mobile_no = #{memberPhoneNumber}
+		WHERE email_id = #{emailId};
+  </update>
+  <update id="updatePic" parameterType="Member">
+	  	UPDATE MEMBERS
+		SET
+			picfilepath = #{picfilepath}
+		WHERE email_id = #{emailId};
+  </update>
+    <delete id="deleteById" parameterType="int">
+    	DELETE from MEMBERS WHERE profile_id = #{id};
+    </delete>
+
+	    <insert id="insertaccout" parameterType="Account">
+		INSERT INTO ACCOUNTS (  email_id,        
+		passwords,       
+		account_flag ) 
+		VALUES (#{LoginId},#{passWord},
+		#{accountFlag});
+	</insert>
+	
+	<insert id="insert" parameterType="Member">
+		INSERT INTO MEMBERS (  email_id,       
+		first_name_s,     
+		last_name_s  ,    
+		date_of_birth ,   
+		gender,           
+		mobile_no,searchClob        ) 
+		VALUES (#{emailId}, #{memberFirstName},
+		#{memberLastName}, #{memberDOB},
+		#{memberGender}, #{memberPhoneNumber}, #{searchIdClob});
+	</insert>
+
+  
+  <select id="getSearchResult" parameterType="Member" resultMap="result">
+  	
+	  	SELECT * FROM MEMBERS WHERE searchClob like #{searchString} and email_id !=#{emailId} ;
+	  	 
+  </select>
+
+</mapper>

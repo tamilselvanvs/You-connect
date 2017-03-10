@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="Member" type="com.youconnect.bean.Member"/>
+		<typeAlias alias="Account" type="com.youconnect.bean.Account"/>
+		<typeAlias alias="AccountDesc" type="com.youconnect.bean.AccountDesc"/>
+	</typeAliases>
+	
+	<environments default="development">
+		<environment id="development">
+		  <transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver"/>
+				<property name="url" value="jdbc:mysql://localhost:3306/uncc_social_network"/>
+				<property name="username" value="root"/>
+				<property name="password" value="1234"/>
+			</dataSource>
+	   </environment>
+	</environments>
+	
+    <mappers>
+  	   <mapper resource="com/youconnect/data/Member.xml"/>
+  	   <mapper resource="com/youconnect/data/Accounts.xml"/>
+  	   <mapper resource="com/youconnect/data/AccountDescs.xml"/>
+    </mappers>
+
+</configuration>

@@ -1,0 +1,57 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+  
+ 
+  <context:component-scan base-package="com.youconnect.controller" />
+  <mvc:annotation-driven/>
+ <bean id="multipartResolver"
+      class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+ 
+       <!-- Maximum file size: 1MB -->
+       <!-- 1MB = 125000 Byte -->
+      <property name="maxUploadSize" value="125000000" />
+ 
+  </bean>
+ 
+ 
+ <bean id="viewResolver"
+    	class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+        <property name="prefix">
+            <value>/WEB-INF/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+ </bean>
+ 
+     
+<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<property name="host" value="smtp.gmail.com" />
+	<property name="port" value="587" />
+	<property name="username" value="youconnectunccamdin@gmail.com" />
+	<property name="password" value="20111987" /> 
+	<property name="javaMailProperties">
+            <props>
+            <prop key="mail.smtp.starttls.enable">true</prop>  
+                <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+                                              
+                <prop key="mail.smtp.auth">true</prop>
+            </props>
+	</property>
+</bean>
+  
+ <mvc:resources mapping="/resources/**" location="/resources/" />
+
+</beans>
